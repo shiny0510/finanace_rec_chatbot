@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanFit - 로그인</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Pretendard, Arial, sans-serif;
+            background: #f6faf9;
+            color: #222;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .left {
+            width: 52%;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0, 132, 118, 0.98),
+                    rgba(0, 91, 82, 0.96)
+                );
+            padding: 50px 70px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.07);
+            top: -120px;
+            right: -150px;
+        }
+
+        .left::after {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            bottom: -150px;
+            left: -100px;
+        }
+
+        .logo-box {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-box img {
+            width: 175px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .intro {
+            position: relative;
+            z-index: 2;
+            margin-top: 160px;
+        }
+
+        .intro h1 {
+            font-size: 50px;
+            line-height: 1.25;
+            margin-bottom: 24px;
+        }
+
+        .intro p {
+            font-size: 18px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .right {
+            width: 48%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .login-card h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .sub {
+            color: #777;
+            margin-bottom: 38px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            height: 52px;
+            padding: 0 16px;
+            border: 1px solid #d8dfdd;
+            border-radius: 12px;
+            outline: none;
+            font-size: 15px;
+            background: white;
+        }
+
+        input:focus {
+            border-color: #008878;
+            box-shadow: 0 0 0 3px rgba(0,136,120,0.10);
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 54px;
+            border: none;
+            border-radius: 12px;
+            background: #008878;
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .login-btn:hover {
+            background: #006f63;
+        }
+
+        .signup {
+            margin-top: 26px;
+            text-align: center;
+            color: #777;
+        }
+
+        .signup a {
+            color: #008878;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .error {
+            background: #fff0f0;
+            color: #d63737;
+            padding: 13px 15px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        @media(max-width: 900px) {
+            .left {
+                display: none;
+            }
+
+            .right {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <section class="left">
+
+        <div class="logo-box">
+            <img src="/static/logo.png" alt="FinanFit">
+        </div>
+
+        <div class="intro">
+            <h1>
+                나에게 맞는 금융상품을<br>
+                더 쉽고 정확하게
+            </h1>
+
+            <p>
+                나이, 직업, 소득과 투자성향을 분석하여<br>
+                고객에게 적합한 금융상품을 추천합니다.
+            </p>
+        </div>
+
+    </section>
+
+    <section class="right">
+
+        <div class="login-card">
+
+            <h2>로그인</h2>
+
+            <p class="sub">
+                FinanFit에서 나에게 맞는 금융상품을 찾아보세요.
+            </p>
+
+            {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="post" action="/login">
+
+                <div class="form-group">
+                    <label>아이디</label>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="아이디를 입력하세요"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="비밀번호를 입력하세요"
+                        required
+                    >
+                </div>
+
+                <button class="login-btn">
+                    로그인
+                </button>
+
+            </form>
+
+            <div class="signup">
+                아직 회원이 아니신가요?
+                <a href="/signup">회원가입</a>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+</body>
+</html>

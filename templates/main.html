@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FinanFit</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Pretendard, Arial, sans-serif;
+            background: #f6f8f8;
+            color: #202624;
+        }
+
+        header {
+            height: 82px;
+            background: white;
+            border-bottom: 1px solid #e6ecea;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo img {
+            width: 158px;
+            display: block;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-weight: 700;
+        }
+
+        .profile-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #d7e9e5;
+        }
+
+        .default-profile {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #dcefeb;
+            color: #008878;
+            font-weight: 800;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1250px;
+            margin: 48px auto 100px;
+        }
+
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #008878,
+                    #00665b
+                );
+            border-radius: 24px;
+            padding: 42px 48px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 14px;
+        }
+
+        .hero p {
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        .user-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .user-tags span {
+            background: rgba(255,255,255,0.16);
+            padding: 9px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+        }
+
+        .hero-number {
+            font-size: 72px;
+            font-weight: 800;
+            opacity: 0.15;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 48px;
+            margin-bottom: 22px;
+        }
+
+        .section-title h2 {
+            font-size: 27px;
+        }
+
+        .section-title p {
+            color: #777;
+            margin-top: 7px;
+            font-size: 14px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #e5ebe9;
+            border-radius: 20px;
+            padding: 26px;
+            transition: 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #a8d3ca;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+        }
+
+        .rank {
+            width: 36px;
+            height: 36px;
+            border-radius: 11px;
+            background: #e7f5f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #008878;
+            font-weight: 800;
+            margin-bottom: 22px;
+        }
+
+        .bank {
+            font-size: 13px;
+            color: #008878;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            min-height: 55px;
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.45;
+        }
+
+        .rate-box {
+            background: #f7faf9;
+            border-radius: 15px;
+            padding: 18px;
+            margin: 22px 0;
+        }
+
+        .rate-title {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .rate {
+            font-size: 30px;
+            font-weight: 900;
+            color: #e04c42;
+            margin-top: 4px;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail {
+            display: grid;
+            grid-template-columns: 75px 1fr;
+            gap: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .detail-title {
+            color: #888;
+        }
+
+        .detail-value {
+            color: #444;
+            word-break: keep-all;
+        }
+
+        .detail-btn {
+            width: 100%;
+            height: 46px;
+            border: none;
+            border-radius: 11px;
+            background: #008878;
+            color: white;
+            margin-top: 22px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .chatbot-button {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            background: white;
+            position: fixed;
+            right: 38px;
+            bottom: 35px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: 0.2s;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.06);
+        }
+
+        .chatbot-button img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        @media(max-width: 950px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-number {
+                display: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <a class="logo" href="/main">
+        <img src="/static/logo.png">
+    </a>
+
+    <div class="header-right">
+
+        <div class="profile">
+
+            {% if user["profile_image"] %}
+
+            <img
+                class="profile-img"
+                src="{{ user['profile_image'] }}"
+            >
+
+            {% else %}
+
+            <div class="default-profile">
+                {{ user["name"][0] }}
+            </div>
+
+            {% endif %}
+
+            <span>
+                {{ user["name"] }}님
+            </span>
+
+        </div>
+
+        <a
+            href="/logout"
+            class="logout"
+        >
+            로그아웃
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+    <section class="hero">
+
+        <div>
+
+            <h1>
+                {{ user["name"] }}님을 위한 금융상품
+            </h1>
+
+            <p>
+                회원님의 나이, 투자성향, 직업, 소득 정보를 분석하여
+                적합도가 높은 상품을 선별했습니다.
+            </p>
+
+            <div class="user-tags">
+
+                <span>
+                    {{ user["age"] }}세
+                </span>
+
+                <span>
+                    {{ user["investment_type"] }}
+                </span>
+
+                <span>
+                    {{ user["job"] }}
+                </span>
+
+                <span>
+                    연소득
+                    {{ "{:,}".format(user["income"]) }}원
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="hero-number">
+            03
+        </div>
+
+    </section>
+
+
+    <div class="section-title">
+
+        <div>
+            <h2>
+                맞춤 추천 TOP 3
+            </h2>
+
+            <p>
+                현재 예금상품 중 회원님의 조건을 기준으로 추천합니다.
+            </p>
+        </div>
+
+    </div>
+
+
+    <section class="cards">
+
+        {% for product in products %}
+
+        <article class="product-card">
+
+            <div class="rank">
+                {{ loop.index }}
+            </div>
+
+            <div class="bank">
+                {{ product.bank }}
+            </div>
+
+            <div class="product-name">
+                {{ product.name }}
+            </div>
+
+            <div class="rate-box">
+
+                <div class="rate-title">
+                    최고 금리
+                </div>
+
+                <div class="rate">
+                    {{ product.max_rate }}%
+                </div>
+
+                <div
+                    style="
+                        margin-top:7px;
+                        color:#777;
+                        font-size:12px;
+                    "
+                >
+                    기본 {{ product.base_rate }}%
+                </div>
+
+            </div>
+
+            <div class="details">
+
+                <div class="detail">
+
+                    <span class="detail-title">
+                        가입기간
+                    </span>
+
+                    <span class="detail-value">
+                        {{ product.period }}
+                    </span>
+
+                </div>
+
+                <div class="detail">
+
+                    <span class="detail-title">
+                        가입금액
+                    </span>
+
+                    <span class="detail-value">
+                        {{ product.amount }}
+                    </span>
+
+                </div>
+
+                <div class="detail">
+
+                    <span class="detail-title">
+                        가입방법
+                    </span>
+
+                    <span class="detail-value">
+                        {{ product.method }}
+                    </span>
+
+                </div>
+
+            </div>
+
+            {% if product.url %}
+
+            <button
+                class="detail-btn"
+                onclick="window.open('{{ product.url }}')"
+            >
+                상세보기
+            </button>
+
+            {% else %}
+
+            <button class="detail-btn">
+                추천상품
+            </button>
+
+            {% endif %}
+
+        </article>
+
+        {% endfor %}
+
+    </section>
+
+</div>
+
+
+<a
+    href="/chatbot"
+    class="chatbot-button"
+    title="금융상품 상담"
+>
+    <img
+        src="/static/chatbot.png"
+        alt="챗봇"
+    >
+</a>
+
+</body>
+</html>
